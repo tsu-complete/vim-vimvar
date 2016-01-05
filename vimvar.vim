@@ -24,8 +24,11 @@ endfunction
 
 " let saved_var = VarRead("cached_variable_reference")
 function! VarRead ( name )
-  execute "let l:result = " . readfile(s:GetFileName(a:name))[0]
-  return l:result
+  let l:name = s:GetFileName(a:name)
+  if filereadable(l:name)
+    execute "let l:result = " . readfile(l:name)[0]
+    return l:result
+  endif
 endfunction
 
 " ensure storage directory exists
